@@ -29,16 +29,20 @@ const AREAS = { Foodplug: 'projecten', Loodgieters: 'projecten', Prijzen: 'prijz
 const PROJECTS = { foodplug: 'Foodplug', 'lood-a': 'Loodgieter A', 'lood-b': 'Loodgieter B' };
 
 /* ---------- state ---------- */
+// One shared team account; who you are is a local choice (trusted team, not a security boundary).
+const TEAM_EMAIL = 'team@startbord.app';
 let me = null, entered = false;
-const S = { members: {}, checks: {}, items: [] };
-const name = email => S.members[email] || (email || '?').split('@')[0];
-const COLORS = ['#D9F26B', '#F2B35B', '#8FD3C1', '#C9B6F2'];
-const color = email => COLORS[Object.keys(S.members).indexOf(email) % COLORS.length] || COLORS[3];
-const av = (email, cls = '') => `<span class="av ${cls}" style="--c:${color(email)}">${esc(name(email).slice(0, 1).toUpperCase())}</span>`;
+const S = { checks: {}, items: [] };
+const COLORS = { Zayd: '#FF7A3D', Amine: '#F5C451', Haider: '#7FB3FF' };
+const name = n => n || '?';
+const color = n => COLORS[n] || '#A3A1B8';
+const av = (n, cls = '') => `<span class="av ${cls}" style="--c:${color(n)}">${esc(name(n).slice(0, 1).toUpperCase())}</span>`;
+const store = { get: () => { try { return localStorage.getItem('startbord-who'); } catch { return null; } }, set: v => { try { v ? localStorage.setItem('startbord-who', v) : localStorage.removeItem('startbord-who'); } catch {} } };
 
 /* ---------- routing ---------- */
 function show() {
-  const id = $('#' + CSS.escape(location.hash.slice(1) || 'overzicht'))?.classList.contains('view') ? location.hash.slice(1) : 'overzicht';
+  const h = location.hash.slice(1) || 'overzicht';
+  const id = $('#' + CSS.escape(h))?.classList.contains('view') ? h : 'overzicht';
   $$('.view').forEach(v => v.hidden = v.id !== id);
   $$('#nav a').forEach(a => a.getAttribute('href') === '#' + id ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
   scrollTo(0, 0);
@@ -97,7 +101,7 @@ const reload = () => { clearTimeout(reloadT); reloadT = setTimeout(load, 300); }
 document.addEventListener('change', async e => {
   const id = e.target.dataset?.check; if (!id) return;
   const on = e.target.checked;
-  const { error } = on ? await sb.from('checks').upsert({ id }) : await sb.from('checks').delete().eq('id', id);
+  const { error } = on ? await sb.from('checks').upsert({ id, by: me }) : await sb.from('checks').delete().eq('id', id);
   if (error) { e.target.checked = !on; toast('Opslaan mislukt'); } else load();
 });
 document.addEventListener('submit', async e => {
@@ -106,7 +110,7 @@ document.addEventListener('submit', async e => {
   if (f.id === 'login-form') return login();
   const ref = f.dataset.add || f.dataset.fbform; if (!ref) return;
   const field = $('input,textarea', f), text = field.value.trim(); if (!text) return;
-  const { error } = await sb.from('items').insert({ kind: f.dataset.add ? 'task' : 'feedback', ref, text });
+  const { error } = await sb.from('items').insert({ kind: f.dataset.add ? 'task' : 'feedback', ref, text, by: me });
   if (error) return toast('Opslaan mislukt');
   field.value = ''; load();
 });
@@ -117,10 +121,12 @@ document.addEventListener('click', async e => {
     const url = prompt('Link (https://…)'); if (!url) return;
     if (!/^https?:\/\/\S+$/i.test(url)) return toast('Alleen http(s)-links');
     const text = prompt('Naam van de link', new URL(url).hostname) || new URL(url).hostname;
-    const { error } = await sb.from('items').insert({ kind: 'link', ref: b.dataset.addlink, text: text.slice(0, 80), url });
+    const { error } = await sb.from('items').insert({ kind: 'link', ref: b.dataset.addlink, text: text.slice(0, 80), url, by: me });
     error ? toast('Opslaan mislukt') : load();
   }
-  if ('logout' in b.dataset) { await sb.auth.signOut(); location.reload(); }
+  if ('logout' in b.dataset) { store.set(null); await sb.auth.signOut(); location.reload(); }
+  if ('switch' in b.dataset) { store.set(null); location.reload(); }
+  if (b.dataset.who) { store.set(b.dataset.who); location.reload(); }
   if (b.dataset.preset) applyPreset(b.dataset.preset);
 });
 
@@ -186,16 +192,14 @@ function applyPreset(k) {
 
 /* ---------- auth ---------- */
 async function login() {
-  const email = $('#login-email').value.trim();
-  const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.origin + location.pathname, shouldCreateUser: true } });
-  $('#login-msg').textContent = error ? 'Mislukt: ' + error.message : 'Check je mail en klik op de link.';
+  const { error } = await sb.auth.signInWithPassword({ email: TEAM_EMAIL, password: $('#login-pw').value });
+  $('#login-msg').textContent = error ? 'Verkeerd wachtwoord.' : '';
 }
-async function enter(session) {
-  if (entered) return; entered = true;
-  me = session.user.email;
-  const { data } = await sb.from('members').select('*');
-  S.members = Object.fromEntries((data || []).map(m => [m.email, m.name]));
-  if (!S.members[me]) { $('#gate').hidden = false; $('#gate-login').hidden = true; $('#gate-denied').hidden = false; $('#denied-email').textContent = me; return; }
+async function enter() {
+  if (entered) return;
+  me = store.get();
+  if (!COLORS[me]) { $('#gate').hidden = false; $('#gate-login').hidden = true; $('#gate-who').hidden = false; return; }
+  entered = true;
   $('#gate').hidden = true; $('#app').hidden = false;
   $('#me-av').outerHTML = av(me); $('#me-name').textContent = name(me);
   const d = Math.ceil((new Date('2026-10-27T00:00:00') - new Date()) / 864e5);

@@ -24,6 +24,7 @@ create policy "members read" on public.members for select to authenticated using
 create policy "checks all" on public.checks for all to authenticated using ((select public.is_member())) with check ((select public.is_member()));
 create policy "kv all" on public.kv for all to authenticated using ((select public.is_member())) with check ((select public.is_member()));
 create policy "items read" on public.items for select to authenticated using ((select public.is_member()));
-create policy "items insert" on public.items for insert to authenticated with check ((select public.is_member()) and by = (auth.jwt() ->> 'email'));
-create policy "items delete own" on public.items for delete to authenticated using ((select public.is_member()) and by = (auth.jwt() ->> 'email'));
+create policy "items insert" on public.items for insert to authenticated with check ((select public.is_member()) and by in ('Zayd','Amine','Haider'));
+create policy "items delete" on public.items for delete to authenticated using ((select public.is_member()));
 alter publication supabase_realtime add table public.checks, public.items, public.kv;
+-- Shared login: one auth user (team@startbord.app) listed in members; password is shared in person, not stored here.

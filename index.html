@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Startbord</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=Bricolage+Grotesque:opsz,wght@12..96,700..800&display=swap">
 <link rel="stylesheet" href="styles.css">
 <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 </head>
@@ -14,27 +14,30 @@
 <!-- Login -->
 <div id="gate" class="gate" hidden>
   <div class="gate-card">
-    <div class="logo">Startbord<i>.</i></div>
+    <div class="logo"><span class="mark">s</span>startbord</div>
     <div id="gate-login">
-      <p class="muted">Log in met je e-mail. Je krijgt een link.</p>
+      <p class="muted">Teamwachtwoord</p>
       <form id="login-form" class="row">
-        <label class="sr" for="login-email">E-mail</label>
-        <input id="login-email" type="email" required placeholder="jij@mail.com" autocomplete="email">
-        <button type="submit">Stuur link</button>
+        <label class="sr" for="login-pw">Wachtwoord</label>
+        <input id="login-pw" type="password" required autocomplete="current-password">
+        <button type="submit">Binnen</button>
       </form>
       <p id="login-msg" class="muted small"></p>
     </div>
-    <div id="gate-denied" hidden>
-      <p><b>Nog geen toegang.</b></p>
-      <p class="muted">Je bent ingelogd als <b id="denied-email"></b>, maar staat nog niet in de ledenlijst. Vraag Zayd om je toe te voegen.</p>
-      <button class="ghost" type="button" data-logout>Uitloggen</button>
+    <div id="gate-who" hidden>
+      <p class="muted">Wie ben jij?</p>
+      <div class="who-pick">
+        <button type="button" class="ghost" data-who="Zayd"><span class="av" style="--c:#FF7A3D">Z</span>Zayd</button>
+        <button type="button" class="ghost" data-who="Amine"><span class="av" style="--c:#F5C451">A</span>Amine</button>
+        <button type="button" class="ghost" data-who="Haider"><span class="av" style="--c:#7FB3FF">H</span>Haider</button>
+      </div>
     </div>
   </div>
 </div>
 
 <div id="app" class="app" hidden>
   <aside class="side">
-    <div class="logo">Startbord<i>.</i></div>
+    <div class="logo"><span class="mark">s</span>startbord</div>
     <nav id="nav">
       <a href="#overzicht"><i data-lucide="layout-dashboard"></i><span>Overzicht</span></a>
       <a href="#projecten"><i data-lucide="folder-kanban"></i><span>Projecten</span></a>
@@ -44,7 +47,7 @@
       <a href="#team"><i data-lucide="users"></i><span>Team</span></a>
       <a href="#klanten"><i data-lucide="target"></i><span>Klanten</span></a>
     </nav>
-    <div class="me"><span class="av" id="me-av"></span><span id="me-name"></span><button class="icon" type="button" data-logout aria-label="Uitloggen"><i data-lucide="log-out"></i></button></div>
+    <div class="me"><span class="av" id="me-av"></span><span id="me-name"></span><button class="icon" type="button" data-switch aria-label="Andere persoon"><i data-lucide="repeat"></i></button><button class="icon" type="button" data-logout aria-label="Uitloggen"><i data-lucide="log-out"></i></button></div>
   </aside>
 
   <main>
@@ -223,9 +226,9 @@
   <section id="team" class="view" hidden>
     <h2>Team</h2>
     <div class="people">
-      <a class="person" href="https://www.zaydmaadal.site/" target="_blank" rel="noopener"><span class="av big" style="--c:#D9F26B">Z</span><b>Zayd</b><small>portfolio ↗</small></a>
-      <a class="person" href="https://www.aminex.be/" target="_blank" rel="noopener"><span class="av big" style="--c:#F2B35B">A</span><b>Amine</b><small>portfolio ↗</small></a>
-      <a class="person" href="https://haider-al-lami.vercel.app/" target="_blank" rel="noopener"><span class="av big" style="--c:#8FD3C1">H</span><b>Haider</b><small>portfolio ↗</small></a>
+      <a class="person" href="https://www.zaydmaadal.site/" target="_blank" rel="noopener"><span class="av big" style="--c:#FF7A3D">Z</span><b>Zayd</b><small>portfolio ↗</small></a>
+      <a class="person" href="https://www.aminex.be/" target="_blank" rel="noopener"><span class="av big" style="--c:#F5C451">A</span><b>Amine</b><small>portfolio ↗</small></a>
+      <a class="person" href="https://haider-al-lami.vercel.app/" target="_blank" rel="noopener"><span class="av big" style="--c:#7FB3FF">H</span><b>Haider</b><small>portfolio ↗</small></a>
     </div>
     <div class="grid">
       <div class="card stat"><span class="big">÷3</span><p>Winst na kosten. Kan later per project anders.</p></div>

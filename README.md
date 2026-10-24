@@ -2,7 +2,11 @@
 
 Intern dashboard voor ons agency (Zayd, Amine, Haider): projecten, checklists, feedback, prijscalculator, admin & GDPR.
 
-Statische site (HTML/CSS/JS, geen build) + Supabase voor login en gedeelde data.
+Statische site (HTML/CSS/JS, geen build) + Supabase voor gedeelde data.
+
+## Binnenkomen
+
+Eén teamwachtwoord (vraag het aan het team), daarna kies je wie je bent. Je naam staat bij je vinkjes en feedback.
 
 ## Lokaal draaien
 
@@ -10,20 +14,6 @@ Statische site (HTML/CSS/JS, geen build) + Supabase voor login en gedeelde data.
 npx serve -l 3000 .
 ```
 
-Open http://localhost:3000 en log in met je e-mail (magic link).
+## Online
 
-## Toegang geven
-
-Alleen e-mails in de tabel `members` zien data. In Supabase → SQL Editor:
-
-```sql
-insert into public.members (email, name) values
-  ('zayd@…', 'Zayd'), ('amine@…', 'Amine'), ('haider@…', 'Haider');
-```
-
-## Online zetten
-
-1. Importeer deze repo in Vercel (of Cloudflare Pages). Geen build-command, output = root.
-2. Supabase → Authentication → URL Configuration: zet de Site URL op de live URL en voeg die toe aan Redirect URLs.
-
-Database-schema: `supabase/schema.sql`.
+Gekoppeld aan Vercel: elke push naar `main` gaat automatisch live. Database-schema: `supabase/schema.sql`.
