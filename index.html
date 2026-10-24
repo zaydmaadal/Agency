@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Startbord</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+<!-- Login -->
+<div id="gate" class="gate" hidden>
+  <div class="gate-card">
+    <div class="logo">Startbord<i>.</i></div>
+    <div id="gate-login">
+      <p class="muted">Log in met je e-mail. Je krijgt een link.</p>
+      <form id="login-form" class="row">
+        <label class="sr" for="login-email">E-mail</label>
+        <input id="login-email" type="email" required placeholder="jij@mail.com" autocomplete="email">
+        <button type="submit">Stuur link</button>
+      </form>
+      <p id="login-msg" class="muted small"></p>
+    </div>
+    <div id="gate-denied" hidden>
+      <p><b>Nog geen toegang.</b></p>
+      <p class="muted">Je bent ingelogd als <b id="denied-email"></b>, maar staat nog niet in de ledenlijst. Vraag Zayd om je toe te voegen.</p>
+      <button class="ghost" type="button" data-logout>Uitloggen</button>
+    </div>
+  </div>
+</div>
+
+<div id="app" class="app" hidden>
+  <aside class="side">
+    <div class="logo">Startbord<i>.</i></div>
+    <nav id="nav">
+      <a href="#overzicht"><i data-lucide="layout-dashboard"></i><span>Overzicht</span></a>
+      <a href="#projecten"><i data-lucide="folder-kanban"></i><span>Projecten</span></a>
+      <a href="#prijzen"><i data-lucide="calculator"></i><span>Prijzen</span></a>
+      <a href="#diensten"><i data-lucide="layers"></i><span>Diensten</span></a>
+      <a href="#admin"><i data-lucide="shield-check"></i><span>Admin &amp; GDPR</span></a>
+      <a href="#team"><i data-lucide="users"></i><span>Team</span></a>
+      <a href="#klanten"><i data-lucide="target"></i><span>Klanten</span></a>
+    </nav>
+    <div class="me"><span class="av" id="me-av"></span><span id="me-name"></span><button class="icon" type="button" data-logout aria-label="Uitloggen"><i data-lucide="log-out"></i></button></div>
+  </aside>
+
+  <main>
+  <!-- OVERZICHT -->
+  <section id="overzicht" class="view">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">🍔 Foodplug-demo</p>
+        <div class="count"><span id="days">–</span><small>dagen</small></div>
+        <p class="muted">Dinsdag 27 oktober. Doel: weten of hij interesse heeft.</p>
+      </div>
+      <ol class="timeline">
+        <li class="done"><b>Do 22/10</b><span>Idee</span></li>
+        <li><b>Za–zo</b><span>Basisversie + prijs kiezen</span></li>
+        <li><b>Ma 26/10</b><span>Merge klaar</span></li>
+        <li class="key"><b>Di 27/10</b><span>Demo</span></li>
+        <li><b>Na "ja"</b><span>Admin &amp; factuur</span></li>
+      </ol>
+    </div>
+    <div class="grid">
+      <div class="card"><h3>Voortgang</h3><div id="progress" class="rings"></div></div>
+      <div class="card"><h3>Laatste feedback</h3><div id="recent" class="feed"></div></div>
+    </div>
+  </section>
+
+  <!-- PROJECTEN -->
+  <section id="projecten" class="view" hidden>
+    <h2>Projecten</h2>
+    <article class="card project">
+      <header class="phead">
+        <div class="pico">🍔</div>
+        <div><h3>Foodplug</h3><p class="muted small">Eetzaak · WhatsApp → eigen bestelsysteem</p></div>
+        <div class="chips"><span class="chip warn">Demo di 27/10</span><span class="chip">€300</span></div>
+      </header>
+      <div class="links">
+        <a href="https://foodplug-one.vercel.app/" target="_blank" rel="noopener"><i data-lucide="external-link"></i>Versie Amine</a>
+        <a href="https://github.com/AmineElb1/foodplug" target="_blank" rel="noopener"><i data-lucide="github"></i>Repo Amine</a>
+        <a href="https://foodplug-pi.vercel.app/" target="_blank" rel="noopener"><i data-lucide="external-link"></i>Versie Haider</a>
+        <span data-links="foodplug"></span>
+      </div>
+
+      <div class="callout"><i data-lucide="triangle-alert"></i><p><b>Grootste risico = adoptie.</b> Twee eerdere voorstellen strandden. Dus: testfase waarin niets verandert voor hem.</p></div>
+
+      <h4>Samenvoegen: welke aanpak?</h4>
+      <div class="options">
+        <div class="opt-card"><b>1</b><p>Beiden werken verder, daarna mergen</p><span class="chip bad">dubbel werk</span></div>
+        <div class="opt-card"><b>2</b><p>Nieuwe repo, alles samenbrengen</p><span class="chip bad">duurst</span></div>
+        <div class="opt-card pick"><b>3</b><p>Amine = basis, onderdelen van Haider overnemen</p><span class="chip ok">advies</span></div>
+      </div>
+
+      <details open><summary>Samenvoegen <span class="count-chip" data-count="fp-merge"></span></summary><div data-list="fp-merge"></div></details>
+      <details open><summary>Voor dinsdag <span class="count-chip" data-count="fp-dinsdag"></span></summary><div data-list="fp-dinsdag"></div></details>
+      <details><summary>Testfase-plan <span class="count-chip" data-count="fp-test"></span></summary>
+        <ol class="steps">
+          <li><i data-lucide="wrench"></i><b>Wij zetten op</b><span>Menu, zones, ticketscherm</span></li>
+          <li><i data-lucide="graduation-cap"></i><b>30 min uitleg</b><span>Voor hem en personeel</span></li>
+          <li><i data-lucide="split"></i><b>Parallel</b><span>WhatsApp blijft · online = korting</span></li>
+          <li><i data-lucide="life-buoy"></i><b>Fallback</b><span>Storing → "Bestel via WhatsApp"</span></li>
+          <li><i data-lucide="bar-chart-3"></i><b>Evaluatie</b><span>Na 2 en 4 weken</span></li>
+        </ol>
+        <div data-list="fp-test"></div>
+      </details>
+      <details><summary>Later <span class="count-chip" data-count="fp-later"></span></summary><div data-list="fp-later"></div></details>
+      <details open><summary><i data-lucide="message-circle"></i> Feedback</summary><div data-fb="foodplug"></div></details>
+    </article>
+
+    <div class="grid">
+      <article class="card project">
+        <header class="phead">
+          <div class="pico">🔧</div>
+          <div><h3>Loodgieter A</h3><p class="muted small">Boom · Amine</p></div>
+          <div class="chips"><span class="chip warn">Verbeteren</span></div>
+        </header>
+        <div class="links"><a href="https://loodgieter-six.vercel.app/" target="_blank" rel="noopener"><i data-lucide="external-link"></i>Huidige versie</a><span data-links="lood-a"></span></div>
+        <details open><summary>Te doen <span class="count-chip" data-count="ld-a"></span></summary><div data-list="ld-a"></div></details>
+        <details><summary><i data-lucide="message-circle"></i> Feedback</summary><div data-fb="lood-a"></div></details>
+      </article>
+      <article class="card project">
+        <header class="phead">
+          <div class="pico">🔧</div>
+          <div><h3>Loodgieter B</h3><p class="muted small">Boom · Zayd</p></div>
+          <div class="chips"><span class="chip bad">Niet gestart</span></div>
+        </header>
+        <div class="links"><span data-links="lood-b"></span></div>
+        <details open><summary>Te doen <span class="count-chip" data-count="ld-b"></span></summary><div data-list="ld-b"></div></details>
+        <details><summary><i data-lucide="message-circle"></i> Feedback</summary><div data-fb="lood-b"></div></details>
+      </article>
+    </div>
+    <div class="callout info"><i data-lucide="info"></i><p><b>Kennen de loodgieters elkaar?</b> Geen probleem: wees eerlijk, beloof geen exclusiviteit en maak de sites duidelijk anders. Intern hetzelfde template hergebruiken mag.</p></div>
+  </section>
+
+  <!-- PRIJZEN -->
+  <section id="prijzen" class="view" hidden>
+    <h2>Prijzen</h2>
+    <p class="muted">Per pakket, geen uurloon. Bedragen zijn aanpasbaar en worden voor ons drie bewaard.</p>
+    <div class="card calc">
+      <div>
+        <h4>Pakket</h4><div id="packs"></div>
+        <h4>Opties</h4><div id="opts"></div>
+        <div class="line"><span>Extra pagina's</span><input id="pages" type="number" min="0" max="20" value="0" aria-label="Aantal extra pagina's"></div>
+        <h4>Korting</h4>
+        <div class="seg" id="disc" role="radiogroup" aria-label="Korting">
+          <label><input type="radio" name="disc" value="0" checked><span>Normaal</span></label>
+          <label><input type="radio" name="disc" value="25"><span>Starter −25%</span></label>
+          <label><input type="radio" name="disc" value="60"><span>Partner −60%</span></label>
+        </div>
+        <h4>Onderhoud</h4>
+        <div class="seg" id="maint" role="radiogroup" aria-label="Onderhoud"></div>
+        <div class="row wrap" style="margin-top:14px"><button class="ghost" type="button" data-preset="foodplug">🍔 Foodplug</button><button class="ghost" type="button" data-preset="lood">🔧 Loodgieter</button></div>
+      </div>
+      <div class="out">
+        <p class="eyebrow">Prijs klant</p>
+        <div class="big" id="o-price">€0</div>
+        <dl>
+          <div><dt>Marktwaarde</dt><dd id="o-base"></dd></div>
+          <div><dt>Per persoon ÷3</dt><dd id="o-pp"></dd></div>
+          <div><dt>Onderhoud /maand</dt><dd id="o-m"></dd></div>
+          <div><dt>Totaal jaar 1</dt><dd id="o-y"></dd></div>
+        </dl>
+        <p class="muted small">Starter = eerste 5 klanten. Partner = tegenprestatie (promovideo, reviews, doorverwijzen).</p>
+      </div>
+    </div>
+
+    <h3>Onderhoud</h3>
+    <div class="tiers" id="tiers"></div>
+
+    <h3>Wat het ons kost</h3>
+    <div class="callout bad"><i data-lucide="ban"></i><p><b>Vercel Hobby mag niet voor klantsites</b> (niet-commercieel). Kies Vercel Pro (±$20/maand) of Cloudflare Pages (gratis, commercieel oké).</p></div>
+    <div class="costs">
+      <div class="cost"><i data-lucide="server"></i><b>Hosting</b><span>±$20/m of gratis</span><em>wij · in onderhoud</em></div>
+      <div class="cost"><i data-lucide="database"></i><b>Database</b><span>gratis → $25/m</span><em>wij · pauzeert na 1 week stil</em></div>
+      <div class="cost"><i data-lucide="globe"></i><b>Domein .be</b><span>±€10–15/jaar</span><em>klant</em></div>
+      <div class="cost"><i data-lucide="credit-card"></i><b>Mollie / Stripe</b><span>per transactie</span><em>klant</em></div>
+    </div>
+    <div data-list="prijs"></div>
+  </section>
+
+  <!-- DIENSTEN -->
+  <section id="diensten" class="view" hidden>
+    <h2>Diensten</h2>
+    <div class="services">
+      <div class="svc"><i data-lucide="file"></i><b>Landingspagina</b><span>Loodgieters, kappers</span><em class="chip ok">kunnen we</em></div>
+      <div class="svc"><i data-lucide="files"></i><b>Website</b><span>Meerdere pagina's</span><em class="chip ok">kunnen we</em></div>
+      <div class="svc"><i data-lucide="pencil-line"></i><b>CMS</b><span>Klant past zelf aan</span><em class="chip warn">CMS kiezen</em></div>
+      <div class="svc"><i data-lucide="receipt"></i><b>Bestelsysteem</b><span>Restaurants</span><em class="chip warn">in opbouw</em></div>
+      <div class="svc"><i data-lucide="calendar-check"></i><b>Boekingen</b><span>Afspraken online</span><em class="chip warn">nog bouwen</em></div>
+      <div class="svc"><i data-lucide="credit-card"></i><b>Online betalen</b><span>Mollie / Stripe</span><em class="chip warn">nog bouwen</em></div>
+      <div class="svc future"><i data-lucide="sparkles"></i><b>AI-sitebouwer</b><span>Prompt + slepen</span><em class="chip">later</em></div>
+    </div>
+    <div data-list="diensten"></div>
+  </section>
+
+  <!-- ADMIN -->
+  <section id="admin" class="view" hidden>
+    <h2>Admin &amp; GDPR</h2>
+    <div class="callout"><i data-lucide="file-warning"></i><p>Pas regelen na een <b>"ja"</b>. Zonder ondernemingsnummer geen factuur, dus nog geen betaaldatum beloven.</p></div>
+    <div class="card"><h3>Van "ja" tot factuur</h3><div data-list="admin"></div></div>
+
+    <h3>Wie bezit wat?</h3>
+    <div class="own">
+      <div><i data-lucide="globe"></i><b>Domein</b><span class="chip ok">klant</span><small>Wij regelen, hij betaalt</small></div>
+      <div><i data-lucide="server"></i><b>Hosting + DB</b><span class="chip">wij</span><small>Zolang onderhoud loopt</small></div>
+      <div><i data-lucide="users-round"></i><b>Klantdata</b><span class="chip ok">klant</span><small>Altijd</small></div>
+      <div><i data-lucide="code-xml"></i><b>Code &amp; template</b><span class="chip">wij</span><small>Klant: gebruiksrecht</small></div>
+    </div>
+    <p class="muted small">Stopt een klant? Site + data naar zijn account, eenmalig €50–100 overdracht. In de overeenkomst zetten.</p>
+
+    <div class="card">
+      <h3>GDPR</h3>
+      <div class="roles"><div><span class="chip ok">Klant</span><b>verantwoordelijke</b><small>beslist waarom data verzameld wordt</small></div><i data-lucide="arrow-right"></i><div><span class="chip">Wij</span><b>verwerker</b><small>bouwen &amp; hosten in zijn opdracht</small></div></div>
+      <div data-list="gdpr"></div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" class="view" hidden>
+    <h2>Team</h2>
+    <div class="people">
+      <a class="person" href="https://www.zaydmaadal.site/" target="_blank" rel="noopener"><span class="av big" style="--c:#D9F26B">Z</span><b>Zayd</b><small>portfolio ↗</small></a>
+      <a class="person" href="https://www.aminex.be/" target="_blank" rel="noopener"><span class="av big" style="--c:#F2B35B">A</span><b>Amine</b><small>portfolio ↗</small></a>
+      <a class="person" href="https://haider-al-lami.vercel.app/" target="_blank" rel="noopener"><span class="av big" style="--c:#8FD3C1">H</span><b>Haider</b><small>portfolio ↗</small></a>
+    </div>
+    <div class="grid">
+      <div class="card stat"><span class="big">÷3</span><p>Winst na kosten. Kan later per project anders.</p></div>
+      <div class="card stat"><span class="big">2–1</span><p>Regel bij onenigheid? Nog afspreken.</p></div>
+    </div>
+    <div class="card"><h3>Te doen</h3><div data-list="team"></div></div>
+    <div class="callout info"><i data-lucide="sparkles"></i><p><b>Inspiratie:</b> <a href="https://noblematter.be/" target="_blank" rel="noopener">Noble Matter</a> (Antwerpen), gedeeld door Amine.</p></div>
+  </section>
+
+  <!-- KLANTEN -->
+  <section id="klanten" class="view" hidden>
+    <h2>Klanten vinden</h2>
+    <div class="services">
+      <div class="svc"><i data-lucide="map-pin"></i><b>Google Maps</b><span>Zaken zonder (goede) site</span></div>
+      <div class="svc"><i data-lucide="footprints"></i><b>Langsgaan</b><span>Met demo uit dezelfde sector</span></div>
+      <div class="svc"><i data-lucide="gift"></i><b>Doorverwijzen</b><span>Korting voor wie ons aanraadt</span></div>
+      <div class="svc"><i data-lucide="clapperboard"></i><b>Promovideo</b><span>Foodplug + voor/na-posts</span></div>
+      <div class="svc"><i data-lucide="heart-handshake"></i><b>Netwerk</b><span>Familie &amp; vrienden met een zaak</span></div>
+    </div>
+    <div class="card"><h3>Te doen</h3><div data-list="klanten"></div></div>
+  </section>
+  </main>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
