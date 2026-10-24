@@ -27,9 +27,9 @@
     <div id="gate-who" hidden>
       <p class="muted">Wie ben jij?</p>
       <div class="who-pick">
-        <button type="button" class="ghost" data-who="Zayd"><span class="av" style="--c:#FF7A3D">Z</span>Zayd</button>
-        <button type="button" class="ghost" data-who="Amine"><span class="av" style="--c:#F5C451">A</span>Amine</button>
-        <button type="button" class="ghost" data-who="Haider"><span class="av" style="--c:#7FB3FF">H</span>Haider</button>
+        <button type="button" class="ghost" data-who="Zayd"><span class="av" style="--c:#2563EB">Z</span>Zayd</button>
+        <button type="button" class="ghost" data-who="Amine"><span class="av" style="--c:#0F9F6E">A</span>Amine</button>
+        <button type="button" class="ghost" data-who="Haider"><span class="av" style="--c:#D97706">H</span>Haider</button>
       </div>
     </div>
   </div>
@@ -47,7 +47,7 @@
       <a href="#team"><i data-lucide="users"></i><span>Team</span></a>
       <a href="#klanten"><i data-lucide="target"></i><span>Klanten</span></a>
     </nav>
-    <div class="me"><span class="av" id="me-av"></span><span id="me-name"></span><button class="icon" type="button" data-switch aria-label="Andere persoon"><i data-lucide="repeat"></i></button><button class="icon" type="button" data-logout aria-label="Uitloggen"><i data-lucide="log-out"></i></button></div>
+    <div class="me"><span class="av" id="me-av"></span><span id="me-name"></span><button class="icon theme-btn" type="button" data-theme-toggle aria-label="Licht of donker"><i data-lucide="sun-moon"></i></button><button class="icon" type="button" data-switch aria-label="Andere persoon"><i data-lucide="repeat"></i></button><button class="icon" type="button" data-logout aria-label="Uitloggen"><i data-lucide="log-out"></i></button></div>
   </aside>
 
   <main>
@@ -68,14 +68,21 @@
       </ol>
     </div>
     <div class="grid">
-      <div class="card"><h3>Voortgang</h3><div id="progress" class="rings"></div></div>
-      <div class="card"><h3>Laatste feedback</h3><div id="recent" class="feed"></div></div>
+      <div class="card"><h3>Voortgang</h3><div class="total"><b id="total">0%</b><span>van alle taken klaar</span></div><div id="progress" class="prog"></div></div>
+      <div class="card"><h3>Eerst doen</h3><div id="next" class="next"></div></div>
     </div>
+    <div class="card"><h3>Laatste feedback</h3><div id="recent" class="feed"></div></div>
   </section>
 
   <!-- PROJECTEN -->
   <section id="projecten" class="view" hidden>
     <h2>Projecten</h2>
+    <div class="pgrid" id="pgrid"></div>
+    <div class="callout info"><i data-lucide="info"></i><p><b>Kennen de loodgieters elkaar?</b> Geen probleem: wees eerlijk, beloof geen exclusiviteit en maak de sites duidelijk anders. Intern hetzelfde template hergebruiken mag.</p></div>
+  </section>
+
+  <section id="p-foodplug" class="view" hidden>
+    <a class="back" href="#projecten"><i data-lucide="arrow-left"></i>Alle projecten</a>
     <article class="card project">
       <header class="phead">
         <div class="pico">🍔</div>
@@ -113,8 +120,10 @@
       <details><summary>Later <span class="count-chip" data-count="fp-later"></span></summary><div data-list="fp-later"></div></details>
       <details open><summary><i data-lucide="message-circle"></i> Feedback</summary><div data-fb="foodplug"></div></details>
     </article>
+  </section>
 
-    <div class="grid">
+  <section id="p-lood-a" class="view" hidden>
+    <a class="back" href="#projecten"><i data-lucide="arrow-left"></i>Alle projecten</a>
       <article class="card project">
         <header class="phead">
           <div class="pico">🔧</div>
@@ -123,8 +132,12 @@
         </header>
         <div class="links"><a href="https://loodgieter-six.vercel.app/" target="_blank" rel="noopener"><i data-lucide="external-link"></i>Huidige versie</a><span data-links="lood-a"></span></div>
         <details open><summary>Te doen <span class="count-chip" data-count="ld-a"></span></summary><div data-list="ld-a"></div></details>
-        <details><summary><i data-lucide="message-circle"></i> Feedback</summary><div data-fb="lood-a"></div></details>
+        <details open><summary><i data-lucide="message-circle"></i> Feedback</summary><div data-fb="lood-a"></div></details>
       </article>
+  </section>
+
+  <section id="p-lood-b" class="view" hidden>
+    <a class="back" href="#projecten"><i data-lucide="arrow-left"></i>Alle projecten</a>
       <article class="card project">
         <header class="phead">
           <div class="pico">🔧</div>
@@ -133,10 +146,8 @@
         </header>
         <div class="links"><span data-links="lood-b"></span></div>
         <details open><summary>Te doen <span class="count-chip" data-count="ld-b"></span></summary><div data-list="ld-b"></div></details>
-        <details><summary><i data-lucide="message-circle"></i> Feedback</summary><div data-fb="lood-b"></div></details>
+        <details open><summary><i data-lucide="message-circle"></i> Feedback</summary><div data-fb="lood-b"></div></details>
       </article>
-    </div>
-    <div class="callout info"><i data-lucide="info"></i><p><b>Kennen de loodgieters elkaar?</b> Geen probleem: wees eerlijk, beloof geen exclusiviteit en maak de sites duidelijk anders. Intern hetzelfde template hergebruiken mag.</p></div>
   </section>
 
   <!-- PRIJZEN -->
@@ -203,8 +214,14 @@
   <!-- ADMIN -->
   <section id="admin" class="view" hidden>
     <h2>Admin &amp; GDPR</h2>
-    <div class="callout"><i data-lucide="file-warning"></i><p>Pas regelen na een <b>"ja"</b>. Zonder ondernemingsnummer geen factuur, dus nog geen betaaldatum beloven.</p></div>
-    <div class="card"><h3>Van "ja" tot factuur</h3><div data-list="admin"></div></div>
+    <p class="muted">Niets hiervan moet vóór dinsdag. Dit is wat er gebeurt <b>nadat</b> een klant "ja" zegt, in volgorde. Klik op <i data-lucide="chevron-down" style="width:14px;height:14px;vertical-align:middle"></i> bij een taak voor uitleg.</p>
+    <div class="phases">
+      <a href="#fase-1"><span class="num phase-n">1</span><span><b>Na een "ja"</b><small>Bedrijf opstarten</small></span></a>
+      <a href="#fase-2"><span class="num phase-n">2</span><span><b>Eerste factuur</b><small>Papierwerk klaar</small></span></a>
+      <a href="#fase-3"><span class="num phase-n">3</span><span><b>Bestelsysteem live</b><small>GDPR in orde</small></span></a>
+    </div>
+    <div class="card" id="fase-1"><h3><span class="num phase-n">1</span>Na een "ja": bedrijf opstarten</h3><div data-list="admin1"></div></div>
+    <div class="card" id="fase-2"><h3><span class="num phase-n">2</span>Voor de eerste factuur</h3><div data-list="admin2"></div></div>
 
     <h3>Wie bezit wat?</h3>
     <div class="own">
@@ -215,8 +232,8 @@
     </div>
     <p class="muted small">Stopt een klant? Site + data naar zijn account, eenmalig €50–100 overdracht. In de overeenkomst zetten.</p>
 
-    <div class="card">
-      <h3>GDPR</h3>
+    <div class="card" id="fase-3">
+      <h3><span class="num phase-n">3</span>Voor het bestelsysteem live gaat (GDPR)</h3>
       <div class="roles"><div><span class="chip ok">Klant</span><b>verantwoordelijke</b><small>beslist waarom data verzameld wordt</small></div><i data-lucide="arrow-right"></i><div><span class="chip">Wij</span><b>verwerker</b><small>bouwen &amp; hosten in zijn opdracht</small></div></div>
       <div data-list="gdpr"></div>
     </div>
@@ -226,13 +243,13 @@
   <section id="team" class="view" hidden>
     <h2>Team</h2>
     <div class="people">
-      <a class="person" href="https://www.zaydmaadal.site/" target="_blank" rel="noopener"><span class="av big" style="--c:#FF7A3D">Z</span><b>Zayd</b><small>portfolio ↗</small></a>
-      <a class="person" href="https://www.aminex.be/" target="_blank" rel="noopener"><span class="av big" style="--c:#F5C451">A</span><b>Amine</b><small>portfolio ↗</small></a>
-      <a class="person" href="https://haider-al-lami.vercel.app/" target="_blank" rel="noopener"><span class="av big" style="--c:#7FB3FF">H</span><b>Haider</b><small>portfolio ↗</small></a>
+      <a class="person" href="https://www.zaydmaadal.site/" target="_blank" rel="noopener"><span class="av lg" style="--c:#2563EB">Z</span><b>Zayd</b><small>portfolio ↗</small></a>
+      <a class="person" href="https://www.aminex.be/" target="_blank" rel="noopener"><span class="av lg" style="--c:#0F9F6E">A</span><b>Amine</b><small>portfolio ↗</small></a>
+      <a class="person" href="https://haider-al-lami.vercel.app/" target="_blank" rel="noopener"><span class="av lg" style="--c:#D97706">H</span><b>Haider</b><small>portfolio ↗</small></a>
     </div>
     <div class="grid">
       <div class="card stat"><span class="big">÷3</span><p>Winst na kosten. Kan later per project anders.</p></div>
-      <div class="card stat"><span class="big">2–1</span><p>Regel bij onenigheid? Nog afspreken.</p></div>
+      <div class="card stat"><span class="big">2/3</span><p><b>Oneens?</b> Voorstel: meerderheid beslist (2 van 3 stemmen). Nog samen afspreken.</p></div>
     </div>
     <div class="card"><h3>Te doen</h3><div data-list="team"></div></div>
     <div class="callout info"><i data-lucide="sparkles"></i><p><b>Inspiratie:</b> <a href="https://noblematter.be/" target="_blank" rel="noopener">Noble Matter</a> (Antwerpen), gedeeld door Amine.</p></div>

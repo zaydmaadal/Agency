@@ -12,28 +12,51 @@ function toast(m) { const t = $('#toast'); t.textContent = m; t.hidden = false; 
 
 /* ---------- content ---------- */
 const LISTS = {
-  'fp-merge': ['Foodplug', [['repo', 'Haider deelt repo + nodigt ons uit'], ['basis', 'Basisversie kiezen (optie 3)'], ['kleur', 'Rood + geel/goud van Haider'], ['paginas', "Haiders pagina's in Amines stijl, minder tekst"], ['bestel', 'Aparte bestelpagina (afhalen/betalen)'], ['delete', 'Verwijder-icoon bij laatste item'], ['anim', 'Loading- en algemene animaties'], ['test', 'Zayd test + bug-feedback']]],
-  'fp-dinsdag': ['Foodplug', [['flow', 'Demo: bestellen → ticket bij Foodplug'], ['menu', "Echt menu + foto's in de demo"], ['pitch', 'Testfase kunnen uitleggen'], ['prijs', 'Prijs afspreken onder ons'], ['vragen', 'Vragen klaar: uren, leverzones, wie neemt aan, welk toestel']]],
+  'fp-merge': ['Foodplug', [['repo', 'Haider deelt repo + nodigt ons uit', 'Zonder toegang tot zijn code kunnen we zijn onderdelen niet overnemen. GitHub → Settings → Collaborators.', 1], ['basis', 'Basisversie kiezen (optie 3)', 'Advies: Amine als basis, onderdelen van Haider erbij. Zo werken we maar aan één versie verder.', 1], ['kleur', 'Rood + geel/goud van Haider'], ['paginas', "Haiders pagina's in Amines stijl, minder tekst"], ['bestel', 'Aparte bestelpagina (afhalen/betalen)'], ['delete', 'Verwijder-icoon bij laatste item'], ['anim', 'Loading- en algemene animaties'], ['test', 'Zayd test + bug-feedback']]],
+  'fp-dinsdag': ['Foodplug', [['flow', 'Demo: bestellen → ticket bij Foodplug', 'Het belangrijkste moment van de demo: hij ziet live een bestelling binnenkomen als ticket.', 1], ['menu', "Echt menu + foto's in de demo", 'Met zijn eigen gerechten voelt het meteen als zíjn site, niet als een voorbeeld.', 1], ['pitch', 'Testfase kunnen uitleggen', 'Kort: WhatsApp blijft, de site komt erbij met korting, na 4 weken evalueren.'], ['prijs', 'Prijs afspreken onder ons', 'Richtprijs €300 in ruil voor een promovideo. Zie Prijzen → voorbeeld Foodplug.', 1], ['vragen', 'Vragen klaar: uren, leverzones, wie neemt aan, welk toestel']]],
   'fp-test': ['Foodplug', [['korting', 'Korting voor online bestellen kiezen'], ['banner', 'Fallback-banner "Bestel via WhatsApp"'], ['toestel', 'Toestel voor tickets kiezen'], ['handleiding', 'Handleiding van 1 pagina'], ['eval', 'Evaluaties in de agenda']]],
   'fp-later': ['Foodplug', [['betalen', 'Betalen: Mollie/Stripe + cash'], ['privacy', 'Privacyverklaring'], ['domein', 'Domein op naam van Foodplug'], ['video', 'Promovideo afspreken']]],
   'ld-a': ['Loodgieters', [['punten', 'Verbeterpunten verzamelen'], ['info', "Echte info: diensten, regio, foto's, reviews"], ['template', 'Template-delen herbruikbaar maken'], ['contact', 'Contact + prijsvoorstel']]],
-  'ld-b': ['Loodgieters', [['info', "Info: diensten, regio, foto's, reviews"], ['template', 'Starten vanaf template van Amine'], ['anders', 'Ander uiterlijk dan Loodgieter A'], ['contact', 'Contact + prijsvoorstel']]],
-  'prijs': ['Prijzen', [['vast', 'Prijzen samen vastleggen'], ['host', 'Vercel Pro of Cloudflare Pages kiezen'], ['starter', 'Hoeveel klanten krijgen starterskorting?']]],
+  'ld-b': ['Loodgieters', [['info', "Info: diensten, regio, foto's, reviews", "Bel of bezoek hem: wat doet hij, waar werkt hij, heeft hij foto's van zijn werk en Google-reviews?", 1], ['template', 'Starten vanaf template van Amine'], ['anders', 'Ander uiterlijk dan Loodgieter A'], ['contact', 'Contact + prijsvoorstel']]],
+  'prijs': ['Prijzen', [['vast', 'Prijzen samen vastleggen'], ['host', 'Vercel Pro of Cloudflare Pages kiezen', 'Vercel gratis mag niet voor klantsites. Cloudflare Pages is gratis en mag wel; Vercel Pro kost ±$20/maand.'], ['starter', 'Hoeveel klanten krijgen starterskorting?']]],
   'diensten': ['Diensten', [['templates', 'Templates per sector'], ['cms', 'CMS kiezen en testen'], ['boek', 'Boekingssysteem uitwerken']]],
-  'admin': ['Admin', [['akkoord', 'Akkoord op papier: wat, prijs, timing'], ['vorm', 'Vorm: zelfstandige in bijberoep of student-zelfstandige'], ['kbo', 'Ondernemingsloket → KBO-nummer + sociaal verzekeringsfonds'], ['btw', 'Btw-vrijstelling kleine onderneming (< €25.000/jaar)'], ['bank', 'Aparte bankrekening'], ['offerte', 'Offerte: scope, prijs, 50% voorschot, eigendom, portfolio'], ['factuur', 'Factuursjabloon'], ['verdelen', 'Betaald → kosten eraf → ÷3']]],
-  'gdpr': ['GDPR', [['minimaal', 'Enkel nodige data: naam, tel, adres, bestelling'], ['privacy', 'Privacyverklaring op de site'], ['bewaar', 'Bewaartermijn (bv. 6 maanden) + automatisch wissen'], ['eu', 'Database in EU-regio'], ['toegang', 'Toegang beperken tot klant + onderhoud'], ['dpa', 'Verwerkersovereenkomst bij de offerte'], ['cookies', 'Cookiebanner alleen bij tracking'], ['lek', 'Datalek → binnen 72 u melden bij de GBA']]],
-  'team': ['Team', [['onenig', 'Regel bij onenigheid'], ['rollen', 'Rollen verdelen'], ['naam', 'Naam kiezen'], ['logo', 'Logo'], ['site', 'Eigen website / portfolio'], ['deploy', 'Startbord online zetten'], ['claude', 'Claude-assistent terug (API-key + kosten bekijken)']]],
+  'admin1': ['Admin', [
+    ['akkoord', 'Akkoord op papier', 'Stuur de klant een kort bericht met wat we bouwen, de prijs en wanneer het klaar is. Laat hem "akkoord" antwoorden. Dat is je bewijs als er later discussie is.', 1],
+    ['vorm', 'Kiezen wie van ons factureert', 'Eén persoon wordt zelfstandige: in bijberoep (naast je job) of als student-zelfstandige (als je student bent). Die stuurt de facturen, daarna verdelen we door 3.'],
+    ['kbo', 'Inschrijven als onderneming', 'Via een ondernemingsloket (bv. Xerius, Acerta, Liantis) krijg je een ondernemingsnummer. Kost ongeveer €100. Je wordt er ook aangesloten bij een sociaal verzekeringsfonds (verplicht).'],
+    ['btw', 'Btw-vrijstelling vragen', 'Onder €25.000 omzet per jaar kun je de vrijstellingsregeling kiezen: geen btw aanrekenen en geen btw-aangifte. Vraag dit tegelijk aan bij het ondernemingsloket.']]],
+  'admin2': ['Admin', [
+    ['bank', 'Aparte bankrekening', 'Een rekening alleen voor het agency, zodat privé en zaak gescheiden blijven.'],
+    ['offerte', 'Offerte-sjabloon maken', 'Eén pagina: wat we bouwen, prijs, 50% voorschot bij start, onderhoudsprijs, wie wat bezit, en dat we de site in ons portfolio mogen tonen.'],
+    ['factuur', 'Factuursjabloon maken', 'Verplicht: ondernemingsnummer, naam en adres van beide, doorlopend factuurnummer, datum, omschrijving, bedrag. Bij vrijstelling de zin "Bijzondere vrijstellingsregeling kleine ondernemingen".'],
+    ['verdelen', 'Geld verdelen', 'Klant betaalt → hosting- en domeinkosten eraf → de rest delen door 3.']]],
+  'gdpr': ['GDPR', [
+    ['minimaal', 'Enkel nodige gegevens vragen', 'Alleen wat nodig is om te leveren: naam, telefoon, adres, bestelling. Geen e-mail of geboortedatum als je die niet gebruikt.'],
+    ['privacy', 'Privacyverklaring op de site', 'Een pagina die uitlegt wie de gegevens krijgt, waarvoor, hoe lang ze bewaard worden en hoe iemand ze kan laten wissen. Er bestaan gratis generators.'],
+    ['bewaar', 'Bewaartermijn instellen', 'Spreek af hoe lang bestellingen bewaard worden (bv. 6 maanden) en laat oudere automatisch wissen.'],
+    ['eu', 'Gegevens in de EU bewaren', 'Kies bij database en hosting een Europese regio (bv. Frankfurt).'],
+    ['toegang', 'Toegang beperken', 'Alleen de klant en wie het onderhoud doet kunnen in het beheer, met sterke wachtwoorden.'],
+    ['dpa', 'Verwerkersovereenkomst', 'Een kort contract waarin staat dat wij de gegevens alleen voor zijn bestellingen gebruiken. Modellen vind je online.'],
+    ['cookies', 'Cookiebanner: alleen bij tracking', 'Gebruik je geen Google Analytics of advertentiepixels, dan is een cookiebanner niet nodig.'],
+    ['lek', 'Weten wat te doen bij een datalek', 'Lekt er data (bv. na een hack), dan meldt de klant dit binnen 72 uur bij de Gegevensbeschermingsautoriteit. Wij helpen hem daarbij.']]],
+  'team': ['Team', [['onenig', 'Regel bij onenigheid afspreken', 'Voorstel: bij een stemming wint de meerderheid (2 van 3). Bij grote geldbeslissingen moeten we alle drie akkoord zijn.'], ['rollen', 'Rollen verdelen'], ['naam', 'Naam kiezen', 'Zonder naam geen logo, website of facturen. Iedereen stelt er 3 voor, dan stemmen.', 1], ['logo', 'Logo'], ['site', 'Eigen website / portfolio'], ['claude', 'Claude-assistent terug (API-key + kosten bekijken)']]],
   'klanten': ['Klanten', [['lijst', 'Lijst van 20 lokale zaken'], ['demo', 'Demo per sector klaar'], ['pitch', 'Pitchbericht voor WhatsApp/Insta'], ['ref', 'Doorverwijskorting bepalen'], ['review', 'Na oplevering: Google-review vragen']]],
 };
-const AREAS = { Foodplug: 'projecten', Loodgieters: 'projecten', Prijzen: 'prijzen', Diensten: 'diensten', Admin: 'admin', GDPR: 'admin', Team: 'team', Klanten: 'klanten' };
+const AREAS = { Foodplug: ['p-foodplug', 'utensils'], Loodgieters: ['projecten', 'wrench'], Prijzen: ['prijzen', 'calculator'], Diensten: ['diensten', 'layers'], Admin: ['admin', 'shield-check'], GDPR: ['admin', 'lock'], Team: ['team', 'users'], Klanten: ['klanten', 'target'] };
 const PROJECTS = { foodplug: 'Foodplug', 'lood-a': 'Loodgieter A', 'lood-b': 'Loodgieter B' };
+const PMETA = {
+  foodplug: { emoji: '🍔', sub: 'Eetzaak · bestelsysteem', chip: ['Demo di 27/10', 'warn'], lists: ['fp-merge', 'fp-dinsdag', 'fp-test', 'fp-later'] },
+  'lood-a': { emoji: '🔧', sub: 'Boom · Amine', chip: ['Verbeteren', 'warn'], lists: ['ld-a'] },
+  'lood-b': { emoji: '🚿', sub: 'Boom · Zayd', chip: ['Niet gestart', 'bad'], lists: ['ld-b'] },
+};
 
 /* ---------- state ---------- */
 // One shared team account; who you are is a local choice (trusted team, not a security boundary).
 const TEAM_EMAIL = 'team@startbord.app';
 let me = null, entered = false;
+try { const t = localStorage.getItem('startbord-theme'); if (t) document.documentElement.dataset.theme = t; } catch {}
 const S = { checks: {}, items: [] };
-const COLORS = { Zayd: '#FF7A3D', Amine: '#F5C451', Haider: '#7FB3FF' };
+const COLORS = { Zayd: '#2563EB', Amine: '#0F9F6E', Haider: '#D97706' };
 const name = n => n || '?';
 const color = n => COLORS[n] || '#A3A1B8';
 const av = (n, cls = '') => `<span class="av ${cls}" style="--c:${color(n)}">${esc(name(n).slice(0, 1).toUpperCase())}</span>`;
@@ -42,10 +65,13 @@ const store = { get: () => { try { return localStorage.getItem('startbord-who');
 /* ---------- routing ---------- */
 function show() {
   const h = location.hash.slice(1) || 'overzicht';
-  const id = $('#' + CSS.escape(h))?.classList.contains('view') ? h : 'overzicht';
-  $$('.view').forEach(v => v.hidden = v.id !== id);
-  $$('#nav a').forEach(a => a.getAttribute('href') === '#' + id ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
-  scrollTo(0, 0);
+  const el = $('#' + CSS.escape(h));
+  const view = el?.closest('.view');
+  const id = view ? view.id : 'overzicht';
+  if ($('.view:not([hidden])')?.id !== id) { $$('.view').forEach(v => v.hidden = v.id !== id); scrollTo(0, 0); }
+  const nav = id.startsWith('p-') ? 'projecten' : id;
+  $$('#nav a').forEach(a => a.getAttribute('href') === '#' + nav ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+  if (el && el !== view) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); // anchor inside a view, e.g. #fase-2
 }
 addEventListener('hashchange', show);
 
@@ -60,23 +86,40 @@ for (const el of $$('[data-fb]')) {
 }
 for (const el of $$('[data-links]')) el.insertAdjacentHTML('afterend', `<button class="ghost" type="button" data-addlink="${el.dataset.links}" style="padding:6px 12px;font-size:13px"><i data-lucide="plus"></i>Link</button>`);
 
-const taskRow = (id, text, extra) => {
+const taskRow = (id, text, extra, info, prio) => {
   const c = S.checks[id];
-  return `<label class="task${c ? ' done' : ''}"><input type="checkbox" data-check="${esc(id)}"${c ? ' checked' : ''}><span class="t">${esc(text)}</span>${extra ? '<span class="added">nieuw</span>' : ''}${c ? `<span class="who">${av(c.by, 'sm')}</span>` : ''}</label>`;
+  return `<div class="trow"><label class="task${c ? ' done' : ''}"><input type="checkbox" data-check="${esc(id)}"${c ? ' checked' : ''}><span class="t">${esc(text)}</span>${prio && !c ? '<span class="chip prio">eerst</span>' : ''}${extra ? '<span class="added">nieuw</span>' : ''}${c ? `<span class="who">${av(c.by, 'sm')}</span>` : ''}</label>${info ? `<button class="icon info-btn" type="button" data-info aria-expanded="false" aria-label="Uitleg"><i data-lucide="chevron-down"></i></button>` : ''}</div>${info ? `<p class="tinfo" hidden>${esc(info)}</p>` : ''}`;
 };
+const openTasks = () => Object.entries(LISTS).flatMap(([k, [area, items]]) => items.filter(([id, , , p]) => p && !S.checks[k + ':' + id]).map(([, t]) => [t, area, k]));
 const listIds = k => [...LISTS[k][1].map(([id]) => k + ':' + id), ...S.items.filter(i => i.kind === 'task' && i.ref === k).map(i => 'x:' + i.id)];
 const msg = f => `<div class="msg${f.by === me ? ' mine' : ''}">${av(f.by)}<div><div class="meta"><b>${esc(name(f.by))}</b>${when(f.at)}${f.by === me ? `<button class="del" type="button" data-del="${f.id}">verwijder</button>` : ''}</div><div class="body">${esc(f.text)}</div></div></div>`;
 
 function render() {
   for (const el of $$('[data-list]')) {
     const k = el.dataset.list;
-    $('.cl', el).innerHTML = LISTS[k][1].map(([id, t]) => taskRow(k + ':' + id, t)).join('')
+    const open = $$('.tinfo:not([hidden])', el).map(p => p.previousElementSibling.querySelector('[data-check]').dataset.check);
+    $('.cl', el).innerHTML = LISTS[k][1].map(([id, t, info, prio]) => taskRow(k + ':' + id, t, false, info, prio)).join('')
       + S.items.filter(i => i.kind === 'task' && i.ref === k).map(i => taskRow('x:' + i.id, i.text, true)).join('');
+    for (const id of open) { const b = $(`[data-check="${CSS.escape(id)}"]`, el)?.closest('.trow'); if (b) { b.nextElementSibling.hidden = false; $('[data-info]', b).setAttribute('aria-expanded', 'true'); } }
   }
-  for (const el of $$('[data-count]')) { const ids = listIds(el.dataset.count); el.textContent = ids.filter(i => S.checks[i]).length + '/' + ids.length; }
+  const done = ids => ids.filter(i => S.checks[i]).length;
+  for (const el of $$('[data-count]')) { const ids = listIds(el.dataset.count); el.textContent = done(ids) + '/' + ids.length; }
   const areas = {};
-  for (const k in LISTS) { const a = (areas[LISTS[k][0]] ||= [0, 0]); const ids = listIds(k); a[0] += ids.filter(i => S.checks[i]).length; a[1] += ids.length; }
-  $('#progress').innerHTML = Object.entries(areas).map(([a, [d, t]]) => { const p = Math.round(d / t * 100); return `<a class="ring${p === 100 ? ' full' : ''}" href="#${AREAS[a]}"><span class="r" style="--p:${p}"><span>${p}%</span></span>${esc(a)}</a>`; }).join('');
+  for (const k in LISTS) { const a = (areas[LISTS[k][0]] ||= [0, 0]); const ids = listIds(k); a[0] += done(ids); a[1] += ids.length; }
+  const all = Object.values(areas).reduce((s, [d, t]) => [s[0] + d, s[1] + t], [0, 0]);
+  $('#total').textContent = Math.round(all[0] / all[1] * 100) + '%';
+  $('#progress').innerHTML = Object.entries(areas).map(([a, [d, t]]) => { const p = Math.round(d / t * 100); return `<a class="prow${p === 100 ? ' full' : ''}" href="#${AREAS[a][0]}"><span class="pi"><i data-lucide="${AREAS[a][1]}"></i></span><span><b>${esc(a)}<small>${d}/${t}</small></b><span class="bar"><i data-w="${p}"></i></span></span><span class="pct">${p}%</span></a>`; }).join('');
+  setTimeout(() => $$('#progress .bar i, #pgrid .bar i').forEach(i => i.style.width = i.dataset.w + '%'), 30);
+  const nx = openTasks().slice(0, 6);
+  $('#next').innerHTML = nx.length ? nx.map(([t, a, k]) => `<a href="#${k.startsWith('fp') ? 'p-foodplug' : k.startsWith('ld-') ? 'p-lood-' + k.slice(3) : AREAS[a][0]}"><i data-lucide="${AREAS[a][1]}"></i>${esc(t)}<span class="chip">${esc(a)}</span></a>`).join('') : '<p class="empty">Alles wat dringend is, is klaar. 🎉</p>';
+  $('#pgrid').innerHTML = Object.entries(PMETA).map(([p, m]) => {
+    const ids = m.lists.flatMap(listIds), d = done(ids), pct = Math.round(d / ids.length * 100);
+    const nt = m.lists.flatMap(k => LISTS[k][1].filter(([id]) => !S.checks[k + ':' + id]))[0];
+    const nfb = S.items.filter(i => i.kind === 'feedback' && i.ref === p).length;
+    return `<a class="pcard" href="#p-${p}"><div class="phead"><div class="pico">${m.emoji}</div><div><h3>${esc(PROJECTS[p])}</h3><p class="muted small" style="margin:0">${esc(m.sub)}</p></div><div class="chips"><span class="chip ${m.chip[1]}">${esc(m.chip[0])}</span></div></div>
+      <div><div class="meta"><span><i data-lucide="check-check"></i>${d}/${ids.length} taken</span><span><i data-lucide="message-circle"></i>${nfb} feedback</span></div><div class="bar"><i data-w="${pct}"></i></div></div>
+      ${nt ? `<div class="nexttask"><small>Volgende stap</small>${esc(nt[1])}</div>` : ''}<span class="go">Open project <i data-lucide="arrow-right"></i></span></a>`;
+  }).join('');
   const fb = S.items.filter(i => i.kind === 'feedback');
   for (const el of $$('[data-fb]')) { const l = fb.filter(f => f.ref === el.dataset.fb); $('.feed', el).innerHTML = l.length ? l.map(msg).join('') : '<p class="empty">Nog niets. Schrijf de eerste feedback.</p>'; }
   const recent = [...fb].reverse().slice(0, 6);
@@ -115,6 +158,8 @@ document.addEventListener('submit', async e => {
   field.value = ''; load();
 });
 document.addEventListener('click', async e => {
+  const tier = e.target.closest('.tier');
+  if (tier && !e.target.closest('input')) { const r = $(`#maint input[value="${tier.dataset.tier}"]`); r.checked = true; drawCalc(); }
   const b = e.target.closest('button'); if (!b) return;
   if (b.dataset.del) { const { error } = await sb.from('items').delete().eq('id', b.dataset.del); error ? toast('Verwijderen mislukt') : load(); }
   if (b.dataset.addlink) {
@@ -128,6 +173,12 @@ document.addEventListener('click', async e => {
   if ('switch' in b.dataset) { store.set(null); location.reload(); }
   if (b.dataset.who) { store.set(b.dataset.who); location.reload(); }
   if (b.dataset.preset) applyPreset(b.dataset.preset);
+  if ('info' in b.dataset) { const p = b.closest('.trow').nextElementSibling; p.hidden = !p.hidden; b.setAttribute('aria-expanded', String(!p.hidden)); }
+  if ('themeToggle' in b.dataset) {
+    const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.dataset.theme = dark ? 'light' : 'dark';
+    try { localStorage.setItem('startbord-theme', document.documentElement.dataset.theme); } catch {}
+  }
 });
 
 /* ---------- calculator ---------- */
@@ -156,7 +207,7 @@ function drawPrices() {
   $('#opts').innerHTML = Object.keys(N.opts).map(k => `<div class="line"><label><input type="checkbox" value="${k}"${sel?.opts.includes(k) ? ' checked' : ''}>${N.opts[k]}</label><span class="eur">+</span>${priceInput('opts.' + k, prices.opts[k])}</div>`).join('')
     + `<div class="line"><label>Prijs per extra pagina</label>${priceInput('page', prices.page)}</div>`;
   $('#maint').innerHTML = Object.keys(N.maint).map(k => `<label><input type="radio" name="maint" value="${k}"${(sel?.maint ?? 'geen') === k ? ' checked' : ''}><span>${N.maint[k][0]}${prices.maint[k] ? ' €' + prices.maint[k] : ''}</span></label>`).join('');
-  $('#tiers').innerHTML = Object.keys(N.maint).map(k => `<div class="tier${k === 'zorgeloos' ? ' hl' : ''}"><span class="eyebrow">${N.maint[k][0]}</span><div class="line" style="padding:0">${priceInput('maint.' + k, prices.maint[k])}<small class="muted">/maand</small></div><ul>${N.maint[k][1].map(x => `<li><i data-lucide="check"></i>${esc(x)}</li>`).join('')}</ul></div>`).join('');
+  $('#tiers').innerHTML = Object.keys(N.maint).map(k => `<div class="tier" data-tier="${k}"><span class="eyebrow">${N.maint[k][0]}</span><div class="line" style="padding:0">${priceInput('maint.' + k, prices.maint[k])}<small class="muted">/maand</small></div><ul>${N.maint[k][1].map(x => `<li><i data-lucide="check"></i>${esc(x)}</li>`).join('')}</ul></div>`).join('');
   drawCalc(); icons();
 }
 function readSel() {
@@ -164,7 +215,8 @@ function readSel() {
   return { pack: $('#packs input:checked')?.value || 'site', opts: $$('#opts input[type=checkbox]:checked').map(i => i.value), pages: Math.max(0, Math.min(20, +$('#pages').value || 0)), disc: +$('#disc input:checked').value, maint: $('#maint input:checked')?.value || 'geen' };
 }
 function drawCalc() {
-  const r = calc(readSel(), prices);
+  const sel = readSel(), r = calc(sel, prices);
+  $$('.tier').forEach(t => t.classList.toggle('hl', t.dataset.tier === sel.maint));
   $('#o-price').textContent = eur(r.price); $('#o-base').textContent = eur(r.base); $('#o-pp').textContent = eur(r.pp); $('#o-m').textContent = eur(r.m); $('#o-y').textContent = eur(r.year);
 }
 let saveT;
