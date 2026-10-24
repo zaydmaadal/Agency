@@ -44,6 +44,7 @@
       <a href="#prijzen"><i data-lucide="calculator"></i><span>Prijzen</span></a>
       <a href="#diensten"><i data-lucide="layers"></i><span>Diensten</span></a>
       <a href="#admin"><i data-lucide="shield-check"></i><span>Admin &amp; GDPR</span></a>
+      <a href="#belasting"><i data-lucide="landmark"></i><span>Belastingen</span></a>
       <a href="#team"><i data-lucide="users"></i><span>Team</span></a>
       <a href="#klanten"><i data-lucide="target"></i><span>Klanten</span></a>
     </nav>
@@ -237,6 +238,62 @@
       <div class="roles"><div><span class="chip ok">Klant</span><b>verantwoordelijke</b><small>beslist waarom data verzameld wordt</small></div><i data-lucide="arrow-right"></i><div><span class="chip">Wij</span><b>verwerker</b><small>bouwen &amp; hosten in zijn opdracht</small></div></div>
       <div data-list="gdpr"></div>
     </div>
+  </section>
+
+  <!-- BELASTINGEN -->
+  <section id="belasting" class="view" hidden>
+    <h2>Belastingen &amp; kosten</h2>
+    <p class="muted">Indicatief, geen officieel advies. Bedragen wijzigen jaarlijks: laat het nakijken bij een ondernemingsloket (gratis).</p>
+    <div class="callout bad"><i data-lucide="briefcase"></i><p><b>Eerst checken:</b> staat er in ons contract bij Mediahuis een exclusiviteits- of concurrentiebeding? Webdesign kan als concurrentie gezien worden. Vraag het bij HR.</p></div>
+
+    <h3>Wat betalen we?</h3>
+    <div class="services">
+      <div class="svc"><i data-lucide="percent"></i><b>Personenbelasting</b><span>Winst komt bovenop je loon → ±40–45% + ±7% gemeente</span><em class="chip warn">altijd</em></div>
+      <div class="svc"><i data-lucide="heart-pulse"></i><b>Sociale bijdragen</b><span>€0 onder ±€1.900 winst/jaar, daarboven ±20,5%</span><em class="chip ok">eerst €0</em></div>
+      <div class="svc"><i data-lucide="receipt"></i><b>Btw</b><span>Vrijstelling onder €25.000 omzet: geen btw, geen aangifte</span><em class="chip ok">€0</em></div>
+      <div class="svc"><i data-lucide="calendar-clock"></i><b>Voorafbetalen</b><span>Starters: eerste 3 jaar geen boete, je betaalt achteraf</span><em class="chip">optioneel</em></div>
+    </div>
+
+    <div class="callout info"><i data-lucide="split"></i><p><b>Delen door 3?</b> Factureert alleen Zayd, dan is fiscaal álles van Zayd. Netter: <b>alle drie zelfstandige in bijberoep</b> en iedereen factureert zijn eigen deel. Later eventueel een VOF of BV.</p></div>
+
+    <h3>Rekenvoorbeeld</h3>
+    <div class="card calc">
+      <div>
+        <div class="line"><span style="flex:1">Omzet per jaar</span><span class="eur">€</span><input id="tx-omzet" type="number" min="0" step="10" value="1370" aria-label="Omzet per jaar"></div>
+        <div class="line"><span style="flex:1">Kosten per jaar</span><span class="eur">€</span><input id="tx-kost" type="number" min="0" step="10" value="100" aria-label="Kosten per jaar"></div>
+        <h4>Jouw hoogste belastingtarief</h4>
+        <div class="seg" role="radiogroup" aria-label="Belastingtarief">
+          <label><input type="radio" name="tx-rate" value="40"><span>40%</span></label>
+          <label><input type="radio" name="tx-rate" value="45" checked><span>45%</span></label>
+          <label><input type="radio" name="tx-rate" value="50"><span>50%</span></label>
+        </div>
+        <p class="muted small" style="margin-top:12px">Voorbeeld: Foodplug €300 + 2 loodgieters à €400 + 6 maanden onderhoud ≈ €1.370. Kosten: ±€100 inschrijving.</p>
+      </div>
+      <div class="out">
+        <p class="eyebrow">Netto per persoon</p>
+        <div class="big" id="tx-pp">€0</div>
+        <dl>
+          <div><dt>Winst</dt><dd id="tx-winst"></dd></div>
+          <div><dt>Sociale bijdragen</dt><dd id="tx-soc"></dd></div>
+          <div><dt>Personenbelasting</dt><dd id="tx-pb"></dd></div>
+          <div><dt>Netto totaal</dt><dd id="tx-net"></dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <h3>Onze kosten</h3>
+    <div class="costs">
+      <div class="cost"><i data-lucide="building-2"></i><b>Ondernemingsloket</b><span>±€100 per persoon</span><em>eenmalig</em></div>
+      <div class="cost"><i data-lucide="shield"></i><b>Sociaal verzekeringsfonds</b><span>kleine beheerskost</span><em>per kwartaal</em></div>
+      <div class="cost"><i data-lucide="server"></i><b>Hosting</b><span>€0 (Cloudflare) of ±$20/m (Vercel Pro)</span><em>maandelijks</em></div>
+      <div class="cost"><i data-lucide="database"></i><b>Database</b><span>€0 → $25/m</span><em>maandelijks</em></div>
+      <div class="cost"><i data-lucide="globe"></i><b>Domein .be</b><span>±€10–15</span><em>per jaar · klant betaalt</em></div>
+      <div class="cost"><i data-lucide="landmark"></i><b>Bankrekening</b><span>€0–5/maand</span><em>maandelijks</em></div>
+      <div class="cost"><i data-lucide="book-open"></i><b>Boekhouding</b><span>zelf gratis, accountant ±€300–800</span><em>per jaar</em></div>
+      <div class="cost"><i data-lucide="laptop"></i><b>Aftrekbaar</b><span>deel laptop, internet, software</span><em>vermindert winst</em></div>
+    </div>
+    <div class="callout info"><i data-lucide="repeat"></i><p><b>Les:</b> de eerste klanten zijn voor portfolio en doorverwijzingen, niet voor het geld. Onderhoudscontracten zijn wat terugkerend iets oplevert.</p></div>
+    <div class="card"><h3>Te doen</h3><div data-list="belasting"></div></div>
   </section>
 
   <!-- TEAM -->

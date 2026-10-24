@@ -39,10 +39,15 @@ const LISTS = {
     ['dpa', 'Verwerkersovereenkomst', 'Een kort contract waarin staat dat wij de gegevens alleen voor zijn bestellingen gebruiken. Modellen vind je online.'],
     ['cookies', 'Cookiebanner: alleen bij tracking', 'Gebruik je geen Google Analytics of advertentiepixels, dan is een cookiebanner niet nodig.'],
     ['lek', 'Weten wat te doen bij een datalek', 'Lekt er data (bv. na een hack), dan meldt de klant dit binnen 72 uur bij de Gegevensbeschermingsautoriteit. Wij helpen hem daarbij.']]],
+  'belasting': ['Belasting', [
+    ['contract', 'Contract Mediahuis checken', 'Kijk of er een exclusiviteits- of concurrentiebeding in staat. Twijfel? Vraag het bij HR voor je je inschrijft.', 1],
+    ['advies', 'Gratis advies bij een ondernemingsloket', 'Leg onze situatie voor (3 personen, bijberoep, kleine omzet) en vraag welke vorm het voordeligst is.'],
+    ['vorm', 'Kiezen: alle drie bijberoep of één persoon', 'Alle drie bijberoep = iedereen betaalt belasting op zijn eigen deel. Eén persoon = alles is fiscaal van hem.'],
+    ['reserve', 'Belasting opzijzetten', 'Zet bij elke betaling ongeveer de helft opzij op de agency-rekening, dan schrik je niet bij de aanslag.']]],
   'team': ['Team', [['onenig', 'Regel bij onenigheid afspreken', 'Voorstel: bij een stemming wint de meerderheid (2 van 3). Bij grote geldbeslissingen moeten we alle drie akkoord zijn.'], ['rollen', 'Rollen verdelen'], ['naam', 'Naam kiezen', 'Zonder naam geen logo, website of facturen. Iedereen stelt er 3 voor, dan stemmen.', 1], ['logo', 'Logo'], ['site', 'Eigen website / portfolio'], ['claude', 'Claude-assistent terug (API-key + kosten bekijken)']]],
   'klanten': ['Klanten', [['lijst', 'Lijst van 20 lokale zaken'], ['demo', 'Demo per sector klaar'], ['pitch', 'Pitchbericht voor WhatsApp/Insta'], ['ref', 'Doorverwijskorting bepalen'], ['review', 'Na oplevering: Google-review vragen']]],
 };
-const AREAS = { Foodplug: ['p-foodplug', 'utensils'], Loodgieters: ['projecten', 'wrench'], Prijzen: ['prijzen', 'calculator'], Diensten: ['diensten', 'layers'], Admin: ['admin', 'shield-check'], GDPR: ['admin', 'lock'], Team: ['team', 'users'], Klanten: ['klanten', 'target'] };
+const AREAS = { Foodplug: ['p-foodplug', 'utensils'], Loodgieters: ['projecten', 'wrench'], Prijzen: ['prijzen', 'calculator'], Diensten: ['diensten', 'layers'], Admin: ['admin', 'shield-check'], GDPR: ['admin', 'lock'], Belasting: ['belasting', 'landmark'],Team: ['team', 'users'], Klanten: ['klanten', 'target'] };
 const PROJECTS = { foodplug: 'Foodplug', 'lood-a': 'Loodgieter A', 'lood-b': 'Loodgieter B' };
 const PMETA = {
   foodplug: { emoji: '🍔', sub: 'Eetzaak · bestelsysteem', chip: ['Demo di 27/10', 'warn'], lists: ['fp-merge', 'fp-dinsdag', 'fp-test', 'fp-later'] },
@@ -231,6 +236,22 @@ document.addEventListener('input', e => {
   }
   drawCalc();
 });
+/* ---------- belasting-rekenvoorbeeld ---------- */
+// shortcut: sociale grens (±€1.900) en 20,5% zijn benaderingen voor bijberoep; jaarlijks bijwerken.
+export function tax(omzet, kosten, rate) {
+  const winst = Math.max(0, omzet - kosten);
+  const soc = winst > 1900 ? winst * 0.205 : 0;
+  const pb = (winst - soc) * rate / 100 * 1.07; // + ±7% gemeentebelasting
+  const net = winst - soc - pb;
+  return { winst, soc, pb, net, pp: net / 3 };
+}
+console.assert(Math.abs(tax(1370, 100, 45).pp - 219.5) < 0.5, 'rekenvoorbeeld: ±€220 p.p.');
+function drawTax() {
+  const r = tax(Math.max(0, +$('#tx-omzet').value || 0), Math.max(0, +$('#tx-kost').value || 0), +$('[name=tx-rate]:checked').value);
+  $('#tx-pp').textContent = eur(Math.round(r.pp)); $('#tx-winst').textContent = eur(Math.round(r.winst)); $('#tx-soc').textContent = eur(Math.round(r.soc)); $('#tx-pb').textContent = eur(Math.round(r.pb)); $('#tx-net').textContent = eur(Math.round(r.net));
+}
+$('#belasting').addEventListener('input', drawTax);
+drawTax();
 const PRESETS = { foodplug: { pack: 'site', opts: ['bestel'], disc: 60, maint: 'zorgeloos' }, lood: { pack: 'landing', opts: ['seo'], disc: 25, maint: 'basis' } };
 function applyPreset(k) {
   const p = PRESETS[k];
